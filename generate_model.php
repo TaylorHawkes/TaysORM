@@ -1,17 +1,28 @@
 <?php
 include("../../autoload.php");
-//put you db params in here
-$db=EasyConnect::getInstance("host","user","pass","db");
-//change path to wherever you want you Models
-$model_directory="/Users/taylorhawkes/Desktop/roost-server/roost/Model/";
-//change path wherever you want your base models
-$base_model_directory="/Users/taylorhawkes/Desktop/roost-server/roost/Model/Base/";
-
-$options=getopt("",array("table:"));
 
 
+/*you can these settings to meet your needs*/
+$host="";//database host
+$user="";//database user 
+$pass="";//database pass 
+$database="";//database name
+
+
+$model_directory="../../../TModel/"; //this is the directory where your models will be created
+
+
+/*pry don't edit under here unless you know what your doing....*/
+$base_model_directory=$model_directory."Base/";
+$options=getopt("",array("table:","host:","user:","pass:","database:"));
 $table=$options['table'];
 
+if($options["host"]){ $host=$options["host"]; }
+if($options["user"]){ $user=$options["user"]; }
+if($options["pass"]){ $pass=$options["pass"]; }
+if($options["database"]){$database=$options["database"]; }
+
+$db=EasyConnect::getInstance($host,$user,$pass,$database);
 
 
 $query="Describe `$table`";
@@ -23,7 +34,7 @@ $table_new_name=Ucwords($table_new_name);
 $table_new_name=str_replace(" ", "",$table_new_name);
 $file_content=
 '<?php
-namespace Model\Base;
+namespace TModel\Base;
 use TaysORM\TaysORMBase;
 
 class '.$table_new_name.'Base extends TaysORMBase {
@@ -50,7 +61,7 @@ class '.$table_new_name.'Base extends TaysORMBase {
 }    
 ';
 
-$new_file_path= $model_directory_base.$table_new_name."Base.php";
+$new_file_path= $base_model_directory.$table_new_name."Base.php";
 
     file_put_contents($new_file_path,$file_content);
 
@@ -58,8 +69,8 @@ $new_file_path= $model_directory_base.$table_new_name."Base.php";
 //then we just need to build the regular model
 $model = 
 '<?php
-namespace Model;
-use TaysORM\TaysORMBase\\'.$table_new_name.'Base;
+namespace TModel;
+use TModel\Base\\'.$table_new_name.'Base;
 
 class '.$table_new_name.' extends '.$table_new_name.'Base
 {   
