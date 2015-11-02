@@ -1,0 +1,15 @@
+{
+    "name": "taylor-hawkes/tays-orm",
+    "description": "Quick and easy ORM ",
+    "authors": [
+        {
+            "name": "Taylor Hawkes",
+            "homepage": "http://taylor.woodstitch.com"
+        }    
+    ],
+    "license": "MIT",
+    "homepage": "http://taylor.woodstitch.com/",
+    "autoload": {
+        "files": ["TaysORMBase.php"]
+    }
+}
