@@ -5,8 +5,8 @@ This is a super simple class for saving/editing record in a mysql database. It r
 
 Install with composer:
 ```sh
-composer install taylor-hawkes\easy-connect
-composer install taylor-hawkes\tays-orm
+composer require taylor-hawkes\easy-connect
+composer require taylor-hawkes\tays-orm
 ```
 
 Generate a new model with the generator script:
